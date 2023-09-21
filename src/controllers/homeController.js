@@ -26,9 +26,17 @@ let postCRUD = async (req, res) => {
 let getCRUD = (req, res) => {
     return res.render('crud');
 }
+let displayGetCRUD = async (req, res) => {
+    let data = await CRUDsevices.getAllUser({ raw: true, });// raw la cho data hien thi ngan hon
+    console.log(data);
+    console.log('----------------------------')
+    return res.render('displayCRUD',{dataTable : data, }); // using dataTable is display data in srceen
+
+}
 module.exports = {
     getHomePage: getHomePage,
     getAboutPage: getAboutPage,
     getCRUD: getCRUD,
     postCRUD: postCRUD,
+    displayGetCRUD: displayGetCRUD,
 }

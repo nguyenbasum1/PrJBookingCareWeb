@@ -5,9 +5,11 @@ let router = Express.Router();
 let initWebRouter = (app) => {
     router.get("/", homeController.getHomePage);
     router.get("/about", homeController.getAboutPage);
-    // restful api
-    router.get("/crud",homeController.getCRUD);
+    // restful api create
+    router.get("/crud", homeController.getCRUD);
     router.post("/post-crud", homeController.postCRUD);
+    // api display
+    router.get("/get-crud", homeController.displayGetCRUD);
     return app.use("/", router);
 
 }
