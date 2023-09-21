@@ -1,5 +1,5 @@
 import db from "../models/index";
-
+import CRUDsevices from "../sevices/CRUDsevices";
 
 let getHomePage = async (req, res) => {
     try {
@@ -16,12 +16,19 @@ let getHomePage = async (req, res) => {
 let getAboutPage = (req, res) => {
     return res.render('homePage');
 }
+let postCRUD = async (req, res) => {
+    let mess = await CRUDsevices.createNewUser(req.body);// req.body lay data tu form
+    console.log(mess);
+    // return res.render('crud'); // ko can .ejs boi vi config/viewEngine da khai bao r 
+    // console.log(req.body);
+    return res.send('abc');
+}
 let getCRUD = (req, res) => {
-    // return res.send(`get CRUD`);
-    return res.render('crud'); // ko can .ejs boi vi config/viewEngine da khai bao r 
+    return res.render('crud');
 }
 module.exports = {
     getHomePage: getHomePage,
     getAboutPage: getAboutPage,
-    getCRUD: getCRUD
+    getCRUD: getCRUD,
+    postCRUD: postCRUD,
 }

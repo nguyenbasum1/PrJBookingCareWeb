@@ -7,6 +7,7 @@ module.exports = {
       firstName: "nguyenbas",
       lastName: "um",
       address: "USA",
+      phoneNumber: "090-0234",
       gender: 1,
       roleID: "ROLE",
       positionId: "R1",
