@@ -77,7 +77,23 @@ let updateUserData = (data) => {
             } else resolve(); // resolve == return
 
         } catch (error) {
-
+            reject(error);
+        }
+    });
+}
+let deleteUserById = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        // findone 1 element by id and delete this
+        try {
+            let user = await db.User.findOne({
+                where: { id: userId }
+            });
+            if (user) {
+                await user.destroy();
+                resolve();
+            } else resolve();
+        } catch (error) {
+            reject(error);
         }
     });
 }
@@ -86,4 +102,5 @@ module.exports = {
     getAllUser: getAllUser,
     getUserInfoById: getUserInfoById,
     updateUserData: updateUserData,
+    deleteUserById: deleteUserById,
 }

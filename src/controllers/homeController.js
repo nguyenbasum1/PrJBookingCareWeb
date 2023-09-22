@@ -17,19 +17,20 @@ let getAboutPage = (req, res) => {
     return res.render('homePage');
 }
 let postCRUD = async (req, res) => {
-    let mess = await CRUDsevices.createNewUser(req.body);// req.body lay data tu form
-    console.log(mess);
+    await CRUDsevices.createNewUser(req.body);// req.body lay data tu form
+    return console.log("creat user comple ~~~");
     // return res.render('crud'); // ko can .ejs boi vi config/viewEngine da khai bao r 
     // console.log(req.body);
-    // return res.render("a");
+
+
 }
 let getCRUD = (req, res) => {
     return res.render('crud');
 }
 let displayGetCRUD = async (req, res) => {
     let data = await CRUDsevices.getAllUser({ raw: true, });// raw la cho data hien thi ngan hon
-    console.log(data);
-    console.log('----------------------------')
+    // console.log(data);
+    // console.log('----------------------------')
     return res.render('displayCRUD', { dataTable: data, }); // using dataTable is display data in srceen
 
 }
@@ -38,10 +39,6 @@ let editGetCRUD = async (req, res) => {
     if (userId) {
         let userData = await CRUDsevices.getUserInfoById(userId);
         // cjeck data not found
-
-
-
-
         return res.render("editCRUD", { user: userData });// ejs editCRUD can using user ejs
         // console.log(userData); 
         // return res.send("found is user !! ");
@@ -52,10 +49,19 @@ let editGetCRUD = async (req, res) => {
 }
 let putCRUD = async (req, res) => {
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     let allUsers = await CRUDsevices.updateUserData(data);
     // return res.send("updata done !!! ");
     return res.render("displayCRUD", { dataTable: allUsers });
+}
+let deleteCRUD = async (req, res) => {
+    let id = req.query.id; // req.query because ?id= in link 
+    // console.log(id);
+    if (id) {
+        await CRUDsevices.deleteUserById(id);
+        return res.send("delete comple !!! ");
+    }
+    else return res.send("userid null and delete found ");
 }
 module.exports = {
     getHomePage: getHomePage,
@@ -65,4 +71,5 @@ module.exports = {
     displayGetCRUD: displayGetCRUD,
     editGetCRUD: editGetCRUD,
     putCRUD: putCRUD,
+    deleteCRUD: deleteCRUD,
 }
