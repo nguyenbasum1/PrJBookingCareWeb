@@ -21,7 +21,7 @@ let postCRUD = async (req, res) => {
     console.log(mess);
     // return res.render('crud'); // ko can .ejs boi vi config/viewEngine da khai bao r 
     // console.log(req.body);
-    return res.send('abc');
+    // return res.render("a");
 }
 let getCRUD = (req, res) => {
     return res.render('crud');
@@ -30,8 +30,32 @@ let displayGetCRUD = async (req, res) => {
     let data = await CRUDsevices.getAllUser({ raw: true, });// raw la cho data hien thi ngan hon
     console.log(data);
     console.log('----------------------------')
-    return res.render('displayCRUD',{dataTable : data, }); // using dataTable is display data in srceen
+    return res.render('displayCRUD', { dataTable: data, }); // using dataTable is display data in srceen
 
+}
+let editGetCRUD = async (req, res) => {
+    let userId = req.query.id;
+    if (userId) {
+        let userData = await CRUDsevices.getUserInfoById(userId);
+        // cjeck data not found
+
+
+
+
+        return res.render("editCRUD", { user: userData });// ejs editCRUD can using user ejs
+        // console.log(userData); 
+        // return res.send("found is user !! ");
+    }
+    else return res.send("userid null");
+    // console.log(req.query.id);// check request user
+    // return res.send('edit views');// check view
+}
+let putCRUD = async (req, res) => {
+    let data = req.body;
+    console.log(data);
+    let allUsers = await CRUDsevices.updateUserData(data);
+    // return res.send("updata done !!! ");
+    return res.render("displayCRUD", { dataTable: allUsers });
 }
 module.exports = {
     getHomePage: getHomePage,
@@ -39,4 +63,6 @@ module.exports = {
     getCRUD: getCRUD,
     postCRUD: postCRUD,
     displayGetCRUD: displayGetCRUD,
+    editGetCRUD: editGetCRUD,
+    putCRUD: putCRUD,
 }

@@ -35,17 +35,55 @@ let hashUserPassword = (password) => {
     });
 }
 let getAllUser = () => {
-    return new Promise(async(resolve,reject)=>{
-        
+    return new Promise(async (resolve, reject) => {
+
         try {
             let users = db.User.findAll();// db.User is modelName in models files
             resolve(users);
         } catch (error) {
-            reject(error);   
+            reject(error);
+        }
+    });
+}
+let getUserInfoById = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({ where: { id: userId }, raw: true });
+            if (user) {
+                resolve(user);
+            } else resolve([]);
+        } catch (error) {
+            reject(error);
+        }
+
+    });
+}
+let updateUserData = (data) => {
+    // console.log("data from service"); //check form called function
+    return new Promise(async (resolve, reject) => {
+        try {
+            //find user database is like user input 
+            let user = await db.User.findOne({
+                where: { id: data.id }
+            });
+            // if y found user in database
+            if (user) {
+                user.firstName = data.firstName;
+                user.lastName = data.lastName;
+                user.address = data.address;
+                await user.save();
+                let allUsers = await db.User.findAll();
+                resolve(allUsers);
+            } else resolve(); // resolve == return
+
+        } catch (error) {
+
         }
     });
 }
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
+    getUserInfoById: getUserInfoById,
+    updateUserData: updateUserData,
 }

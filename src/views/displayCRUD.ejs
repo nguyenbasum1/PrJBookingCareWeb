@@ -28,6 +28,7 @@
             <th>Address</th>
             <th>gender</th>
             <th>phoneNumber</th>
+            <th>Action</th>
         </tr>
         <% for(let i=0; i<dataTable.length; i++) {%>
             <tr>
@@ -52,7 +53,10 @@
                 <td>
                     <%= dataTable[i].phoneNumber %>
                 </td>
-
+                <td>
+                    <a type="button" class="" href="/gedit-crud?id=<%= dataTable[i].id %>">Edit</a>
+                    <a type="button" class="" href="">Delete</a>
+                </td>
             </tr>
             <% } %>
     </table>

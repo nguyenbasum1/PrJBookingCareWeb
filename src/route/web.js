@@ -10,6 +10,10 @@ let initWebRouter = (app) => {
     router.post("/post-crud", homeController.postCRUD);
     // api display
     router.get("/get-crud", homeController.displayGetCRUD);
+    //api edit
+    router.get("/gedit-crud", homeController.editGetCRUD);
+    //
+    router.post("/put-crud", homeController.putCRUD);
     return app.use("/", router);
 
 }
